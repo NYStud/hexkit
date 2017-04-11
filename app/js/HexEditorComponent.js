@@ -111,7 +111,7 @@ export default class HexEditorComponent {
         }
     }
 
-    _handleOnModify(offset, size) {
+    _handleOnModify() {
         this.loadData();
     }
 

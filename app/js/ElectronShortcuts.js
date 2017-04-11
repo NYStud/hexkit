@@ -4,9 +4,6 @@ export default class ElectronShortcuts {
     constructor() {
         this.keys = {};
         this.listen();
-        this.register('ctrl+space', function() {
-            alert('hello');
-        });
     }
 
     register(key, handler) {

@@ -1,6 +1,5 @@
 export default class BinaryFile {
     constructor() {
-
     }
 
     get canRead() {

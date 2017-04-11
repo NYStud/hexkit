@@ -75,7 +75,7 @@ export default class MenuElement extends HTMLTextElement {
         }
     }
 
-    _handleClick(menuItem, menuItemElement) {
+    _handleClick(menuItem) {
         setTimeout(menuItem.action.bind(menuItem), 0);
     }
 

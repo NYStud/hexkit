@@ -3,18 +3,19 @@ export default class BinaryBuffer {
         throw new Error('not implemented');
     }
 
-    read(offset, size) {
+    read() {
         throw new Error('not implemented');
     }
 
-    write(offset, size, data) {
-    }
-
-    onModify(handler) {
+    write() {
         throw new Error('not implemented');
     }
 
-    onSize(handler) {
+    onModify() {
+        throw new Error('not implemented');
+    }
+
+    onSize() {
         throw new Error('not implemented');
     }
 }

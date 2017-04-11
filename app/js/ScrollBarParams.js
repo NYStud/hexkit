@@ -87,8 +87,6 @@ export default class ScrollBarParams {
             return;
         }
 
-        console.log('layout ' + this.viewSize + ' ' + this.scrollSize)
-
         if(this.viewSize >= this.scrollSize) {
             //scrolling doesn't make sense
             this._ratio = 1;

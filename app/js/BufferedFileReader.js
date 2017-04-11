@@ -14,7 +14,7 @@ export default class BufferedFileReader {
         let bufferOffset = offset - (offset % BUFFER_LENGTH);
         let self = this;
         return new Promise((resolve, reject) => {
-            if(self.bufferOffset != bufferOffset) {
+            if(self.bufferOffset !== bufferOffset) {
                 let bufferLength = BUFFER_LENGTH;
                 if(bufferOffset + bufferLength > self.file.size) {
                     bufferLength = self.file.size - bufferOffset;
@@ -23,7 +23,9 @@ export default class BufferedFileReader {
                     self.buffer = buffer;
                     self.view = new Uint8Array(buffer);
                     resolve(self.view[offset - bufferOffset]);
-                })
+                }).catch(e => {
+                    reject(e);
+                });
             } else {
                 resolve(self.view[offset - bufferOffset]);
             }

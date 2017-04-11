@@ -25,7 +25,7 @@ import WebShortcuts from './WebShortcuts';
 
 let dialog;
 
-let s = new WebShortcuts();
+new WebShortcuts();
 
 if(Platform.isElectron()) {
     dialog = require('electron').remote.dialog;
@@ -40,10 +40,10 @@ window.onload = function() {
     titleBarElement.appendTo(parent);
 
     let menuBar = new MenuBar();
-    let menuBarComponent = new MenuBarComponent(parent, menuBar);
+    new MenuBarComponent(parent, menuBar);
 
     let tabBar = new TabBar();
-    let tabBarComponent = new TabBarComponent(parent, tabBar);
+    new TabBarComponent(parent, tabBar);
     //tabBar.addTab(new Tab(tabBar, 'hello1'));
     //tabBar.addTab(new Tab(tabBar, 'hello2'));
     //tabBar.addTab(new Tab(tabBar, 'hello3'));

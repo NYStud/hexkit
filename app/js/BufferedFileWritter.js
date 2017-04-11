@@ -1,4 +1,4 @@
-import Promise from 'bluebird';
+
 
 const BUFFER_LENGTH = 4096;
 
@@ -14,7 +14,7 @@ export default class BufferedFileWritter {
         if(this.bufferOffset === -1) {
             return;
         }
-        file.write(this.view, 0, this.bufferOffset);
+        this.file.write(this.view, 0, this.bufferOffset);
         this.bufferOffset = 0;
     }
 

@@ -1,4 +1,3 @@
-import Command from './Command'
 
 export default class CommandRegistry {
 
@@ -7,6 +6,6 @@ export default class CommandRegistry {
     }
 
     registerCommand(command) {
-
+        this.commands.push(command);
     }
 }
