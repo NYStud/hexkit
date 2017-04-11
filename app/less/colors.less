@@ -1,0 +1,140 @@
+//basic colors
+@color-none: #00000000;
+@color-light: #fff;
+@color-dark: #262626;
+@color-background: @color-light;
+@color-text: @color-dark;
+@color-info: #5293d8;
+@color-success: #1fe977;
+@color-warning: #f78a46;
+@color-error: #c00;
+
+@background-color-info: #0098ff;
+@background-color-success: #17ca65;
+@background-color-warning: #ff4800;
+@background-color-error: #c00;
+
+//Hex column normal
+@color-normal-text: @color-text;
+@color-normal-background: @color-light;
+@color-normal-hover-text: @color-text;
+@color-normal-hover-line-background: darken(@color-light, 5%);
+@color-normal-hover-background: darken(@color-light, 25%);
+@color-normal-focus-text: @color-background;
+@color-normal-focus-background: lighten(@color-info, 10%);
+@color-normal-focus-line-background: darken(@color-light, 10%);
+@color-normal-focus-cursor: #000;
+@color-normal-focus-hover-text: @color-background;
+@color-normal-focus-hover-background: lighten(@color-info, 10%);
+@color-normal-focus-hover-cursor: #000;
+
+//offset column normal
+@color-normal-offset-text: darken(@color-light, 20%);
+@color-normal-offset-background: lighten(@color-dark, 10%);
+@color-normal-offset-hover-text: darken(@color-light, 0%);
+@color-normal-offset-hover-background: lighten(@color-dark, 15%);
+@color-normal-offset-focus-text: darken(@color-light, 0%);
+@color-normal-offset-focus-background: lighten(@color-dark, 20%);
+@color-normal-offset-focus-hover-text: darken(@color-light, 0%);
+@color-normal-offset-focus-hover-background: lighten(@color-dark, 20%);
+
+//group-separator column normal
+@color-normal-group-separator-background: @color-normal-background;
+@color-normal-group-separator-hover-background: @color-normal-hover-line-background;
+@color-normal-group-separator-focus-background: @color-normal-focus-line-background;
+
+//view separator column normal
+@color-normal-view-separator-background: @color-normal-background;
+@color-normal-view-separator-hover-background: darken(@color-normal-background, 5%);
+@color-normal-view-separator-focus-background: darken(@color-normal-background, 10%);
+
+//offset gutter column normal
+@color-normal-offset-gutter-background: @color-normal-background;
+@color-normal-offset-gutter-hover-background: darken(@color-normal-background, 5%);
+@color-normal-offset-gutter-focus-background: darken(@color-normal-background, 10%);
+
+//Hex column selected
+@color-select-text: @color-text;
+@color-select-background: lighten(@color-info, 32%);
+@color-select-border: darken(@color-info, 20%);
+@color-select-hover-text: @color-text;
+@color-select-hover-line-background: lighten(@color-info, 29%);
+@color-select-hover-background: lighten(@color-info, 20%);
+@color-select-focus-text: @color-background;
+@color-select-focus-background: lighten(@color-info, 10%);
+@color-select-focus-line-background: lighten(@color-info, 25%);
+@color-select-focus-cursor: #000;
+@color-select-focus-hover-text: @color-background;
+@color-select-focus-hover-background: lighten(@color-info, 10%);
+@color-select-focus-hover-cursor: #000;
+
+//group-separator column selected
+@color-select-group-separator-background: @color-select-background;
+@color-select-group-separator-hover-background: @color-select-hover-line-background;
+@color-select-group-separator-focus-background: @color-select-focus-line-background;
+
+//Hex column dirty
+@color-new-text: @color-text;
+@color-new-background: lighten(@color-success, 30%);
+@color-new-hover-text: @color-text;
+@color-new-hover-line-background: lighten(@color-success, 30%);
+@color-new-hover-background: lighten(@color-success, 10%);
+@color-new-focus-text: @color-background;
+@color-new-focus-background: lighten(@color-success, 0%);
+@color-new-focus-line-background: lighten(@color-info, 25%);
+@color-new-focus-cursor: #000;
+@color-new-focus-hover-text: @color-background;
+@color-new-focus-hover-background: lighten(@color-success, 0%);
+@color-new-focus-hover-cursor: #000;
+
+//Hex column new
+@color-dirty-text: darken(@color-warning, 20%);
+@color-dirty-background: @color-none;
+@color-dirty-hover-text: @color-warning;
+@color-dirty-hover-background: lighten(@color-info, 5%);
+@color-dirty-focus-text: @color-background;
+@color-dirty-focus-background: lighten(@color-warning, 0%);
+@color-dirty-focus-cursor: #000;
+@color-dirty-focus-hover-text: @color-background;
+@color-dirty-focus-hover-background: lighten(@color-warning, 0%);
+@color-dirty-focus-hover-cursor: #000;
+
+//Hex column dirty and selected
+@color-dirty-select-text: darken(@color-warning, 20%);
+@color-dirty-select-background: @color-none;
+@color-dirty-select-hover-text: @color-warning;
+@color-dirty-select-hover-background: lighten(@color-info, 20%);
+@color-dirty-select-focus-text: @color-background;
+@color-dirty-select-focus-background: lighten(@color-warning, 0%);
+@color-dirty-select-focus-cursor: #000;
+@color-dirty-select-focus-hover-text: @color-background;
+@color-dirty-select-focus-hover-background: lighten(@color-warning, 0%);
+@color-dirty-select-focus-hover-cursor: #000;
+
+//scrollbar
+@color-scrollbar: @color-light;
+@color-scrollbar-background: darken(@color-scrollbar, 2%);
+
+//scrollbar track
+@color-scrollbar-track-shadow: @color-dark;
+@color-scrollbar-track-background: @color-scrollbar-background;
+@color-scrollbar-track-hover-background: @color-scrollbar-background;
+@color-scrollbar-track-focus-background: darken(@color-scrollbar-background, 1%);
+@color-scrollbar-track-disable-background: @color-scrollbar-background;
+
+//scrollbar grip
+@color-scrollbar-grip-background: darken(@color-scrollbar-background, 8%);
+@color-scrollbar-grip-hover-background: darken(@color-scrollbar-grip-background, 5%);
+@color-scrollbar-grip-focus-background: darken(@color-scrollbar-grip-background, 20%);
+
+//scrollbar buttons
+@color-scrollbar-button-background: @color-scrollbar-background;
+@color-scrollbar-button-hover-background: darken(@color-scrollbar-background, 5%);
+@color-scrollbar-button-focus-background: darken(@color-scrollbar-background, 20%);
+@color-scrollbar-button-disable-background: @color-none;
+
+@color-statusbar-shadow: #000;
+@color-statusbar-background: @color-light;
+@color-statusbar-border-top: @color-light;
+
+@color-tabbar-border-bottom: lighten(@background-color-info, 45%);

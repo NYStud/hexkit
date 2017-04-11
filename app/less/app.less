@@ -1,0 +1,416 @@
+.hide {
+    display: none !important;
+}
+
+@import "./colors";
+@import "./variables";
+@import "./octicons";
+@import "./flex";
+@import "./menu";
+@import "./scrollbar";
+@import "./statusbar";
+@import "./tabs";
+
+@font-face {
+    .octicon-font();
+}
+
+
+html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+body {
+    &:extend(.flex-container);
+    &:extend(.flex-stretch);
+    &:extend(.flex-column);
+
+    background-color: @color-background;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+#content {
+    &:extend(.flex-container);
+    &:extend(.flex-stretch);
+    &:extend(.flex-column);
+    flex-grow: 1;
+}
+
+.title-bar {
+    height:24px;
+    background-color: #cccccc;
+    -webkit-app-region: drag
+}
+
+.editor {
+    flex-grow: 1;
+}
+
+.editor-view {
+    //&:extend(.flex-container);
+    //&:extend(.flex-stretch);
+    //&:extend(.flex-column);
+    overflow: hidden;
+}
+
+.editor-row {
+    &:extend(.flex-container);
+    &:extend(.flex-stretch);
+    &:extend(.flex-row);
+    height: @editor-row-height;
+}
+
+@offset-column-colors: {
+    & {
+        background-color: @color-normal-offset-background;
+        color: @color-normal-offset-text;
+    }
+    .editor-row:hover > & {
+        background-color: @color-normal-offset-hover-background;
+        color: @color-normal-offset-hover-text;
+    }
+    .editor-row.focus > & {
+        background-color: @color-normal-offset-focus-background;
+        color: @color-normal-offset-focus-text;
+    }
+    .editor-row.focus:hover > & {
+        background-color: @color-normal-offset-focus-hover-background;
+        color: @color-normal-offset-focus-hover-text;
+    }
+};
+
+.offset-column {
+    font-size: @offset-fontsize;
+    font-family: @offset-fontfamily;
+    line-height: @offset-lineheight;
+    padding-left: @offset-column-padding-left;
+    padding-right: @offset-column-padding-right;
+    @offset-column-colors();
+}
+
+.select {
+    &.select-border-top {
+        box-shadow: inset 0px @select-border-width 0px 0px @color-select-border;
+    }
+
+    &.select-border-left {
+        box-shadow: inset @select-border-width 0px 0px 0px @color-select-border;
+    }
+
+    &.select-border-right {
+        box-shadow: inset -@select-border-width 0px 0px 0px @color-select-border;
+    }
+
+    &.select-border-bottom {
+        box-shadow: inset 0px -@select-border-width 0px 0px @color-select-border;
+    }
+
+    &.select-border-top-bottom {
+        box-shadow: inset 0px -@select-border-width 0px 0px @color-select-border, inset 0px @select-border-width 0px 0px @color-select-border;
+    }
+
+    &.select-border-top-left {
+        box-shadow: inset @select-border-width @select-border-width 0px 0px @color-select-border;
+    }
+
+    &.select-border-top-right {
+        box-shadow: inset -@select-border-width @select-border-width 0px 0px @color-select-border;
+    }
+
+    &.select-border-bottom-left {
+        box-shadow: inset @select-border-width -@select-border-width 0px 0px @color-select-border;
+    }
+
+    &.select-border-bottom-right {
+        box-shadow: inset -@select-border-width -@select-border-width 0px 0px @color-select-border;
+    }
+
+    &.select-border-top-right-bottom {
+        box-shadow: inset -@select-border-width @select-border-width 0px 0px @color-select-border, inset 0px -@select-border-width 0px 0px @color-select-border;
+    }
+
+    &.select-border-top-left-bottom {
+        box-shadow: inset @select-border-width @select-border-width 0px 0px @color-select-border, inset 0px -@select-border-width 0px 0px @color-select-border;
+    }
+
+    &.select-border-top-left-bottom-right {
+        box-shadow: inset @select-border-width @select-border-width 0px 0px @color-select-border, inset -@select-border-width -@select-border-width 0px 0px @color-select-border;
+    }
+
+    &.select-border-none {
+
+    }
+}
+
+@cell-colors: {
+    & {
+        background-color: @color-normal-background;
+        color: @color-normal-text;
+
+        .editor-row:hover > & {
+            background-color: @color-normal-hover-line-background;
+        }
+
+        .editor-row.focus > & {
+            background-color: @color-normal-focus-line-background;
+        }
+
+        &.hover:not(.disabled) {
+            background-color: @color-normal-hover-background !important;
+            color: @color-normal-hover-text;
+        }
+
+        &.focus {
+            background-color: @color-normal-focus-background !important;
+            color: @color-normal-focus-text;
+            //box-shadow: inset 0px -4px 0px 0px @color-normal-focus-cursor;
+
+            &.hover:not(.disabled) {
+                background-color: @color-normal-focus-hover-background !important;
+                color: @color-normal-focus-hover-text;
+                //box-shadow: inset 0px -4px 0px 0px @color-normal-focus-hover-cursor;
+            }
+        }
+    }
+
+    &.select {
+        background-color: @color-select-background;
+        color: @color-select-text;
+
+        .editor-row:hover > & {
+            background-color: @color-select-hover-line-background;
+        }
+
+        .editor-row.focus > & {
+            background-color: @color-select-focus-line-background;
+        }
+
+        &.hover:not(.disabled) {
+            background-color: @color-select-hover-background !important;
+            color: @color-select-hover-text;
+        }
+
+        &.focus {
+            background-color: @color-select-focus-background !important;
+            color: @color-select-focus-text;
+            //box-shadow: inset 0px -4px 0px 0px @color-select-focus-cursor;
+
+            &.hover:not(.disabled) {
+                background-color: @color-select-focus-hover-background !important;
+                color: @color-select-focus-hover-text;
+                //box-shadow: inset 0px -4px 0px 0px @color-select-focus-hover-cursor;
+            }
+        }
+    }
+
+    &.new {
+        background-color: @color-new-background;
+        color: @color-new-text;
+
+        .editor-row:hover > & {
+            background-color: @color-new-hover-line-background;
+        }
+
+        .editor-row.focus > & {
+            background-color: @color-new-focus-line-background;
+        }
+
+        &.hover:not(.disabled) {
+            background-color: @color-new-hover-background !important;
+            color: @color-new-hover-text;
+        }
+
+        &.focus {
+            background-color: @color-new-focus-background !important;
+            color: @color-new-focus-text;
+            //box-shadow: inset 0px -4px 0px 0px @color-new-focus-cursor;
+
+            &.hover:not(.disabled) {
+                background-color: @color-new-focus-hover-background !important;
+                color: @color-new-focus-hover-text;
+                //box-shadow: inset 0px -4px 0px 0px @color-new-focus-hover-cursor;
+            }
+        }
+    }
+
+    &.dirty {
+        background-color: @color-dirty-background;
+        color: @color-dirty-text;
+
+        &.hover:not(.disabled) {
+            background-color: @color-dirty-hover-background;
+            color: @color-dirty-hover-text;
+        }
+
+        &.focus {
+            background-color: @color-dirty-focus-background !important;
+            color: @color-dirty-focus-text;
+            //box-shadow: inset 0px -4px 0px 0px @color-dirty-focus-cursor;
+
+            &.hover:not(.disabled) {
+                background-color: @color-dirty-focus-hover-background !important;
+
+                color: @color-dirty-focus-hover-text;
+                //box-shadow: inset 0px -4px 0px 0px @color-dirty-focus-hover-cursor;
+            }
+        }
+
+        &.select {
+            background-color: @color-dirty-select-background;
+            color: @color-dirty-select-text;
+
+            &.hover:not(.disabled) {
+                background-color: @color-dirty-select-hover-background !important;
+                color: @color-dirty-select-hover-text;
+            }
+
+            &.focus {
+                background-color: @color-dirty-select-focus-background;
+                color: @color-dirty-select-focus-text;
+                //box-shadow: inset 0px -4px 0px 0px @color-dirty-select-focus-cursor;
+
+                &.hover:not(.disabled) {
+                    background-color: @color-dirty-select-focus-hover-background !important;
+                    color: @color-dirty-select-focus-hover-text;
+                    //box-shadow: inset 0px -4px 0px 0px @color-dirty-select-focus-hover-cursor;
+                }
+            }
+        }
+    }
+};
+
+@cell-styles: {
+    cursor: default;
+    @cell-colors();
+};
+
+@cursor: {
+    position: relative;
+    &.cursor:after {
+        content: "";
+        position: absolute;
+        box-shadow: inset 0px -3px 0px 0px #000;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+    }
+};
+
+.hex-column {
+    font-size: @hex-fontsize;
+    font-family: @hex-fontfamily;
+    font-weight: 500;
+    line-height: @hex-lineheight;
+    padding-left: 1px;
+    padding-right: 1px;
+    white-space: pre;
+    @cell-styles();
+    @cursor();
+}
+
+.character-column {
+    font-size: @text-fontsize;
+    font-family: @text-fontfamily;
+    font-weight: 500;
+    line-height: @text-lineheight;
+    padding-left: 1px;
+    padding-right: 1px;
+    white-space: pre;
+    @cell-styles();
+    @cursor();
+}
+
+@offset-gutter-column-colors: {
+    background-color: @color-normal-offset-gutter-background;
+    .editor-row:hover > & {
+        background-color: @color-normal-offset-gutter-hover-background;
+    }
+    .editor-row.focus > & {
+        background-color: @color-normal-offset-gutter-focus-background;
+    }
+};
+
+@group-separator-column-colors: {
+    & {
+        background-color: @color-normal-group-separator-background;
+        .editor-row:hover > & {
+            background-color: @color-normal-group-separator-hover-background;
+        }
+        .editor-row.focus > & {
+            background-color: @color-normal-group-separator-focus-background;
+        }
+    }
+
+    &.select {
+        background-color: @color-select-group-separator-background;
+        .editor-row:hover > & {
+            background-color: @color-select-group-separator-hover-background;
+        }
+        .editor-row.focus > & {
+            background-color: @color-select-group-separator-focus-background;
+        }
+    }
+};
+
+@hex-separator-column-colors: {
+    & {
+        background-color: @color-normal-group-separator-background;
+        .editor-row:hover > & {
+            background-color: @color-normal-group-separator-hover-background;
+        }
+        .editor-row.focus > & {
+            background-color: @color-normal-group-separator-focus-background;
+        }
+    }
+
+    &.select {
+        background-color: @color-select-group-separator-background;
+        .editor-row:hover > & {
+            background-color: @color-select-group-separator-hover-background;
+        }
+        .editor-row.focus > & {
+            background-color: @color-select-group-separator-focus-background;
+        }
+    }
+};
+
+@view-separator-column-colors: {
+    background-color: @color-normal-group-separator-background;
+    .editor-row:hover > & {
+        background-color: @color-normal-group-separator-hover-background;
+    }
+    .editor-row.focus > & {
+        background-color: @color-normal-group-separator-focus-background;
+    }
+};
+
+.offset-gutter-column {
+    width: @offset-gutter-column-width;
+    @offset-gutter-column-colors();
+}
+
+.hex-separator-column {
+    width: @hex-separator-column-width;
+    @hex-separator-column-colors();
+}
+
+.group-separator-column {
+    width: @group-separator-column-width;
+    @group-separator-column-colors();
+}
+
+.view-separator-column {
+    width: @view-separator-column-width;
+    @view-separator-column-colors();
+}
+
+.fill-column {
+    flex-grow: 1;
+    min-width: 0px;
+    @view-separator-column-colors();
+}

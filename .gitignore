@@ -1,0 +1,9 @@
+.idea
+coverage
+node_modules
+unit_coverage
+app/bower_components
+dist
+public
+typings
+.DS_Store

@@ -1,0 +1,20 @@
+.statusbar {
+    height: @statusbar-height;
+    box-shadow: inset 0px 6px 8px -8px @color-statusbar-shadow;
+    background-color: @color-statusbar-background;
+    z-index: 1000;
+
+    &:extend(.flex-container);
+    &:extend(.flex-stretch);
+    &:extend(.flex-row);
+}
+
+.statusbar-panel {
+    min-width: 10px;
+    border-right: 1px solid #000;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 6px;
+    padding-right: 10px;
+    color: #000;
+}
