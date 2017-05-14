@@ -1,0 +1,201 @@
+{
+    "menu": [{
+            "label": "Hexkit",
+            "submenu": [{
+                    "label": "About Hexkit",
+                    "command": "application:about"
+                },
+                {
+                    "label": "View License",
+                    "command": "application:open-license"
+                },
+                {
+                    "type": "separator"
+                },
+                {
+                    "label": "Preferences…",
+                    "command": "application:show-settings"
+                },
+                {
+                    "label": "Hide Hexkit",
+                    "command": "application:hide"
+                },
+                {
+                    "label": "Show All",
+                    "command": "application:unhide-all-applications"
+                },
+                {
+                    "type": "separator"
+                },
+                {
+                    "label": "Quit",
+                    "command": "application:quit"
+                }
+            ]
+        },
+        {
+            "label": "File",
+            "submenu": [{
+                    "label": "New Window",
+                    "command": "application:new-window"
+                },
+                {
+                    "label": "New File",
+                    "command": "application:new-file"
+                },
+                {
+                    "label": "Open…",
+                    "command": "application:open"
+                },
+                {
+                    "label": "Reopen Last Item",
+                    "command": "pane:reopen-closed-item"
+                },
+                {
+                    "type": "separator"
+                },
+                {
+                    "label": "Save",
+                    "command": "core:save"
+                },
+                {
+                    "label": "Save As…",
+                    "command": "core:save-as"
+                },
+                {
+                    "label": "Save All",
+                    "command": "window:save-all"
+                },
+                {
+                    "type": "separator"
+                },
+                {
+                    "label": "Close Tab",
+                    "command": "core:close"
+                },
+                {
+                    "label": "Close Window",
+                    "command": "window:close"
+                }
+            ]
+        },
+        {
+            "label": "Edit",
+            "submenu": [{
+                    "label": "Undo",
+                    "command": "core:undo"
+                },
+                {
+                    "label": "Redo",
+                    "command": "core:redo"
+                },
+                {
+                    "type": "separator"
+                },
+                {
+                    "label": "Cut",
+                    "command": "core:cut"
+                },
+                {
+                    "label": "Copy",
+                    "command": "core:copy"
+                },
+                {
+                    "label": "Paste",
+                    "command": "core:paste"
+                },
+                {
+                    "label": "Select All",
+                    "command": "core:select-all"
+                }
+            ]
+        },
+        {
+            "label": "View",
+            "submenu": [{
+                    "label": "Toggle Full Screen",
+                    "command": "window:toggle-full-screen"
+                },
+                {
+                    "label": "Developer",
+                    "submenu": [{
+                            "label": "Reload Window",
+                            "command": "window:reload"
+                        },
+                        {
+                            "label": "Toggle Developer Tools",
+                            "command": "window:toggle-dev-tools"
+                        }
+                    ]
+                },
+                {
+                    "type": "separator"
+                },
+                {
+                    "label": "Increase Font Size",
+                    "command": "window:increase-font-size"
+                },
+                {
+                    "label": "Decrease Font Size",
+                    "command": "window:decrease-font-size"
+                },
+                {
+                    "label": "Reset Font Size",
+                    "command": "window:reset-font-size"
+                }
+            ]
+        },
+        {
+            "label": "Window",
+            "role": "window",
+            "submenu": [{
+                    "label": "Minimize",
+                    "command": "application:minimize"
+                },
+                {
+                    "label": "Zoom",
+                    "command": "application:zoom"
+                },
+                {
+                    "type": "separator"
+                },
+                {
+                    "label": "Bring All to Front",
+                    "command": "application:bring-all-windows-to-front"
+                }
+            ]
+        },
+        {
+            "label": "Help",
+            "role": "help",
+            "submenu": [{
+                    "label": "Terms of Use",
+                    "command": "application:open-terms-of-use"
+                },
+                {
+                    "label": "Documentation",
+                    "command": "application:open-documentation"
+                },
+                {
+                    "label": "Frequently Asked Questions",
+                    "command": "application:open-faq"
+                },
+                {
+                    "type": "separator"
+                },
+                {
+                    "label": "Community Discussions",
+                    "command": "application:open-discussions"
+                },
+                {
+                    "label": "Report Issue",
+                    "command": "application:report-issue"
+                },
+                {
+                    "label": "Search Issues",
+                    "command": "application:search-issues"
+                }
+            ]
+        }
+    ]
+}

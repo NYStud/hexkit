@@ -1,0 +1,109 @@
+{
+    "menu": [
+        {
+            "label": "File",
+            "submenu": [{
+                    "label": "New File",
+                    "command": "application:new-file"
+                },
+                {
+                    "label": "Open…",
+                    "command": "application:open"
+                },
+                {
+                    "type": "separator"
+                },
+                {
+                    "label": "Save As…",
+                    "command": "core:save-as"
+                }
+            ]
+        },
+        {
+            "label": "Edit",
+            "submenu": [{
+                    "label": "Undo",
+                    "command": "core:undo"
+                },
+                {
+                    "label": "Redo",
+                    "command": "core:redo"
+                },
+                {
+                    "type": "separator"
+                },
+                {
+                    "label": "Cut",
+                    "command": "core:cut"
+                },
+                {
+                    "label": "Copy",
+                    "command": "core:copy"
+                },
+                {
+                    "label": "Paste",
+                    "command": "core:paste"
+                },
+                {
+                    "label": "Select All",
+                    "command": "core:select-all"
+                }
+            ]
+        },
+        {
+            "label": "View",
+            "submenu": [{
+                    "label": "Toggle Full Screen",
+                    "command": "window:toggle-full-screen"
+                },
+                {
+                    "type": "separator"
+                },
+                {
+                    "label": "Increase Font Size",
+                    "command": "window:increase-font-size"
+                },
+                {
+                    "label": "Decrease Font Size",
+                    "command": "window:decrease-font-size"
+                },
+                {
+                    "label": "Reset Font Size",
+                    "command": "window:reset-font-size"
+                }
+            ]
+        },
+        {
+            "label": "Help",
+            "role": "help",
+            "submenu": [{
+                    "label": "Terms of Use",
+                    "command": "application:open-terms-of-use"
+                },
+                {
+                    "label": "Documentation",
+                    "command": "application:open-documentation"
+                },
+                {
+                    "label": "Frequently Asked Questions",
+                    "command": "application:open-faq"
+                },
+                {
+                    "type": "separator"
+                },
+                {
+                    "label": "Community Discussions",
+                    "command": "application:open-discussions"
+                },
+                {
+                    "label": "Report Issue",
+                    "command": "application:report-issue"
+                },
+                {
+                    "label": "Search Issues",
+                    "command": "application:search-issues"
+                }
+            ]
+        }
+    ]
+}

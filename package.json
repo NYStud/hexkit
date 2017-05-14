@@ -1,10 +1,11 @@
 {
   "name": "hexkit",
-  "description": "Hackable Hex Editor",
+  "description": "The Hackable Hex Editor",
   "version": "0.0.1",
-  "main": "app/main.bootstrap.js",
+  "main": "app/main-process.bootstrap.js",
   "scripts": {
     "start": "electron .",
+    "debug": "electron --debug-brk .",
     "watch": "gulp watch",
     "pack": "build --dir",
     "dist": "build -mwl"
@@ -34,6 +35,7 @@
     "browserify": "^14.3.0",
     "electron": "^1.6.2",
     "electron-builder": "^16.6.1",
+    "electron-rebuild": "^1.5.7",
     "gulp": "^3.9.1",
     "gulp-less": "^3.3.0",
     "gulp-livereload": "^3.8.1",
