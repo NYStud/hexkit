@@ -40,12 +40,28 @@ export default class HexEditor {
         this.emitter.emit('change-active', act);
     }
 
-    close() {
-        this.emitter.emit('close', this);
+    remove() {
+        this.emitter.emit('remove', this);
     }
 
-    onClose(handler) {
-        return this.emitter.on('close', handler);
+    onRemove(handler) {
+        return this.emitter.on('remove', handler);
+    }
+
+    add() {
+        this.emitter.emit('add', this);
+    }
+
+    onAdd(handler) {
+        return this.emitter.on('add', handler);
+    }
+
+    activate(v) {
+        this.emitter.emit('activate', v);
+    }
+
+    onActivate(handler) {
+        return this.emitter.on('activate', handler);
     }
 
     onOffsetChange(handler) {

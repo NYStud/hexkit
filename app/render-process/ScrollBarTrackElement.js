@@ -165,7 +165,6 @@ export default class ScrollBarTrackElement extends HTMLElement {
     handleTrackMouseOut() {
         this.minusScrollHandler.pause();
         this.plusScrollHandler.pause();
-        console.log('out');
     }
 
     handleMouseDown(e) {

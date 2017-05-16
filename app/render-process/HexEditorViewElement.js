@@ -245,6 +245,31 @@ export default class HexEditorViewElement extends ScrollViewChildElement {
         this.rows[row].charecterElements[column].text = CharUtils.byteToChar(data);
     }
 
+    clearData() {
+        let row = 0;
+        let column = 0;
+        for(let i = 0; i < this.size; i++) {
+            //enable
+            this.rows[row].hexElements[2 * column].disabled = true;
+            this.rows[row].hexElements[2 * column + 1].disabled = true;
+            this.rows[row].charecterElements[column].disabled = true;
+            //new
+            this.rows[row].hexElements[2 * column].new = false;
+            this.rows[row].hexElements[2 * column + 1].new = false;
+            this.rows[row].charecterElements[column].new = false;
+            //set data
+            this.rows[row].hexElements[2 * column].text = ' ';
+            this.rows[row].hexElements[2 * column + 1].text = ' ';
+            this.rows[row].charecterElements[column].text = ' ';
+
+            column++;
+            if(column === 16) {
+                row++;
+                column = 0;
+            }
+        }
+    }
+
     setData(array, mask, offset, length) {
         if(length > this.size) {
             throw new RangeError('length is greater than size');
@@ -252,7 +277,6 @@ export default class HexEditorViewElement extends ScrollViewChildElement {
         if(offset + length > array.length) {
             throw new RangeError('array is small');
         }
-        console.log('setData length = ' + length);
 
         let row = 0;
         let column = 0;
@@ -293,9 +317,9 @@ export default class HexEditorViewElement extends ScrollViewChildElement {
             this.rows[row].hexElements[2 * column + 1].new = true;
             this.rows[row].charecterElements[column].new = true;
             //set data
-            this.rows[row].hexElements[2 * column].text = '+';
+            this.rows[row].hexElements[2 * column].text = ' ';
             this.rows[row].hexElements[2 * column + 1].text = ' ';
-            this.rows[row].charecterElements[column].text = '+';
+            this.rows[row].charecterElements[column].text = ' ';
             //dirty
             this.setDirty(i, false);
             //next
@@ -473,7 +497,6 @@ export default class HexEditorViewElement extends ScrollViewChildElement {
         this._selectionMap.fill(SELECTED | BORDER_ALL);
         this._selectionMap.fill(0, 0, startRow * (16 + 15) + startColumn * 2);
         this._selectionMap.fill(0, endRow * (16 + 15) + endColumn * 2 + 1);
-        //console.log('start ' + startRow + )
         for(let i = startRow; i <= endRow; i++) {
             for(let j = 0; j < (16 + 15); j++) {
                 //skip unselected

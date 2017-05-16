@@ -16,7 +16,6 @@ export default class OpenCommand {
     }
 
     register() {
-        console.log(hexkit);
         hexkit.commandRegistry.add('application:open', this.openHandler.bind(this));
     }
 

@@ -2,28 +2,27 @@ import EventEmitter from './EventEmitter';
 
 export default class HexEditorRegistry {
     constructor() {
-        this.editors = [];
-        this.emitter = new EventEmitter();
-        this.activeIndex = -1;
+        this._editors = [];
+        this._emitter = new EventEmitter();
+        this._activeHexEditor = null;
     }
 
     add(hexEditor, activate = true, position = -1) {
-        if((position < 0) || (position > this.editors.length)) {
-            position = this.editors.length;
+        if((position < 0) || (position > this._editors.length)) {
+            position = this._editors.length;
         }
-        console.log('hex editor add position = ' + position);
-        this.editors.splice(position, 0, hexEditor);
-        this.emitter.emit('did-add', position, hexEditor);
-        if((this.activeIndex === -1) || (activate === true)) {
-            console.log('activating hex editor');
+        this._editors.splice(position, 0, hexEditor);
+        hexEditor.add();
+        this._emitter.emit('did-add', position, hexEditor);
+        if((this._activeHexEditor === null) || (activate === true)) {
             this.activeHexEditor = hexEditor;
         }
     }
 
     remove(hexEditor) {
         let index = -1;
-        for(let i = 0; i < this.editors.length; i++) {
-            if(this.editors[i] === hexEditor) {
+        for(let i = 0; i < this._editors.length; i++) {
+            if(this._editors[i] === hexEditor) {
                 index = i;
                 break;
             }
@@ -32,52 +31,55 @@ export default class HexEditorRegistry {
             return;
         }
 
-        this.editors.splice(index, 1);
-        this.emitter.emit('did-remove', index, hexEditor);
+        this._editors.splice(index, 1);
+        hexEditor.remove();
+        this._emitter.emit('did-remove', index, hexEditor);
 
-        if(index === this.activeIndex) {
-            if(this.editors.count === 0) {
+        if(hexEditor === this.activeHexEditor) {
+            if(this._editors.length === 0) {
                 this.activeHexEditor = null;
-            } else if(index >= this.editors.length) {
-                this.activeHexEditor = this.editors[this.editors.length - 1];
+            } else if(index >= this._editors.length) {
+                this.activeHexEditor = this._editors[this._editors.length - 1];
             } else {
-                this.activeHexEditor = this.editors[index];
+                this.activeHexEditor = this._editors[index];
             }
         }
 
+    }
+
+    get editors() {
+        return this._editors;
     }
 
     get activeHexEditor() {
-        if(this.activeIndex < 0 || this.activeIndex > (this.editors.length - 1)) {
-            return null;
-        }
-        return this.editors[this.activeIndex];
+        return this._activeHexEditor;
     }
 
     set activeHexEditor(hexEditor) {
-        let index = -1;
-        if(hexEditor !== null) {
-            for(let i = 0; i < this.editors.length; i++) {
-                if(this.editors[i] === hexEditor) {
-                    index = i;
-                    break;
-                }
-            }
+        if(this._activeHexEditor === hexEditor) {
+            return;
         }
-        this.activeIndex = index;
-        this.emitter.emit('did-activate', index, hexEditor);
+        if(this._activeHexEditor !== null) {
+            this._activeHexEditor.activate(false);
+        }
+        this._emitter.emit('did-activate', hexEditor, false);
+        this._activeHexEditor = hexEditor;
+        if(this._activeHexEditor !== null) {
+            this._activeHexEditor.activate(true);
+        }
+        this._emitter.emit('did-activate', hexEditor, true);
     }
 
     onDidAdd(handler) {
-        return this.emitter.on('did-add', handler);
+        return this._emitter.on('did-add', handler);
     }
 
     onDidRemove(handler) {
-        return this.emitter.on('did-remove', handler);
+        return this._emitter.on('did-remove', handler);
     }
 
     onDidActivate(handler) {
-        return this.emitter.on('did-activate', handler);
+        return this._emitter.on('did-activate', handler);
     }
 
     dispose() {

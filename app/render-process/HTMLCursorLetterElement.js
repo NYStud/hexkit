@@ -1,12 +1,17 @@
 import HTMLTextElement from './HTMLTextElement';
-import Blinker from './Blinker';
+import ClassBlinker from './ClassBlinker';
 
 export default class HTMLCursorLetterElement extends HTMLTextElement {
 
     constructor(domElement) {
         super(domElement);
         this._cursor = false;
-        this._blinker = new Blinker(this, 'cursor', false, 500, 500);
+        this._blinker = new ClassBlinker({
+            'element': this,
+            'className': 'cursor',
+            'enabled': false,
+            'offDuration': 500,
+            'onDuration': 500});
         this.disabled = true;
     }
 
@@ -105,6 +110,11 @@ export default class HTMLCursorLetterElement extends HTMLTextElement {
     }
 
     set cursor(cursor) {
+        if(cursor === true) {
+            this._blinker.enable();
+        } else {
+            this._blinker.disable();
+        }
         this._blinker.enabled = cursor;
     }
 }

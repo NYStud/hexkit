@@ -22,7 +22,6 @@ export default class WebMenuBarElement extends WebMenuElement {
     }
 
     _handleWindowClick() {
-        console.log('click');
         this._endTrack();
     }
 

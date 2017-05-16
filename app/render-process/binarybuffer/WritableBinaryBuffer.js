@@ -94,7 +94,6 @@ class TreeNode {
     insertAfter(afterNode, node) {
         if(this.count > Math.floor(MAX_ELEMENTS/2)) {
             //split this node
-            console.log('splitting');
             let parent = this.parent;
             if(parent === null) {
                 //create parent if does not exist
@@ -110,7 +109,6 @@ class TreeNode {
             //let length = 0;
             let j = 0;
             for(let i = Math.floor(this.count/2); i < this.count; i++) {
-                console.log('copying i ' + i + ' j ' + j);
                 newNode.keys[j] = this.keys[i];
                 this.keys[i] = 0;
                 newNode.childs[j] = this.childs[i];
@@ -131,7 +129,6 @@ class TreeNode {
             parent.insertAfter(this, newNode);
             if(afterNode !== null) {
                 for(let i = 0; i < newNode.count; i++) {
-                    console.log('checking child ' + i);
                     if(newNode.childs[i] === afterNode) {
                         return newNode.insertAfter(afterNode, node);
                     }
@@ -144,7 +141,6 @@ class TreeNode {
         let pos = 0;
         if(afterNode !== null) {
             for(let i = 0; i < this.count; i++) {
-                console.log('checking position ' + i);
                 if(this.childs[i] === afterNode) {
                     pos = i + 1;
                     break;
@@ -152,7 +148,6 @@ class TreeNode {
             }
         }
         for(let i = this.count - 1; i >= pos; i--) {
-            console.log('moving up ' + i);
             this.keys[i + 1] = this.keys[i];
             this.childs[i + 1] = this.childs[i];
         }
@@ -199,7 +194,7 @@ class TreeNode {
             }
             offset += this.keys[i];
         }
-        throw new Error("node not found");
+        throw new Error('node not found');
     }
 
     get offset() {
@@ -302,12 +297,10 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
             p = prevNode.parent;
         }
         this._rootNode = p.insertAfter(prevNode, node);
-        console.log(this._rootNode);
     }
 
     deleteNode(node) {
         this._rootNode = node.parent.deleteNode(node);
-        console.log(this._rootNode);
     }
 
     splitNode(nodeToSplit, offset) {
@@ -345,11 +338,10 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
         let view = new Uint8Array(buffer);
         let self = this;
         return new Promise((resolve, reject) => {
-            console.log(nodes.length);
             let node = nodes[0];
             let nodeOffset = offset - node.offset;
             for(let index = 0; index < size; index++) {
-                if(nodeOffset == node.length) {
+                if(nodeOffset === node.length) {
                     node = node.next;
                     nodeOffset = 0;
                 }
@@ -379,7 +371,6 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
     readModificationArray(offset, size) {
         let nodes = this._rootNode.findNodes(offset, size);
         let mask = new Array(size);
-        let promises = [];
         if(offset + size > this.size) {
             size = this.size - offset;
         }
@@ -389,7 +380,7 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
         let node = nodes[0];
         let nodeOffset = offset - node.offset;
         for(let index = 0; index < size; index++) {
-            if(nodeOffset == node.length) {
+            if(nodeOffset === node.length) {
                 node = node.next;
                 nodeOffset = 0;
             }
@@ -411,7 +402,7 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
             if(node.type === TYPE_FILE_PTR) {
                 return this._reader.readByte(node.fileOffset + nodeOffset).then(function (byte) {
                     resolve(byte);
-                })
+                });
             } else {
                 resolve(node.view[nodeOffset]);
             }
@@ -423,7 +414,7 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
         let node = this._rootNode.findNode(offset);
         let nodeOffset = node.offset;
         if(nodeOffset !== offset) {
-            this.splitNode(node, offset - nodeOffset)
+            this.splitNode(node, offset - nodeOffset);
             node = node.next;
         }
         nodeOffset = node.offset;
@@ -440,6 +431,7 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
     deleteBytes(offset, size) {
         let nodes = this._rootNode.findNodes(offset, size);
         let node = nodes[0];
+        let nodeOffset = node.offset;
         if(offset !== node.offset) {
             this.splitNode(node, offset - nodeOffset);
         }
@@ -460,7 +452,7 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
         let node = this._rootNode.findNode(offset);
         let nodeOffset = node.offset;
         if(nodeOffset !== offset) {
-            this.splitNode(node, offset - nodeOffset)
+            this.splitNode(node, offset - nodeOffset);
         }
         let newNode = new TreeNode(TYPE_BUFFER_PTR, null, null, null);
         newNode.buffer = new ArrayBuffer(1);
@@ -474,6 +466,7 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
     write(offset, size, data) {
         let nodes = this._rootNode.findNodes(offset, size);
         let node = nodes[0];
+        let nodeOffset = node.offset;
         if(offset !== node.offset) {
             this.splitNode(node, offset - nodeOffset);
         }
@@ -500,7 +493,7 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
         let node = this._rootNode.findNode(offset);
         let nodeOffset = node.offset;
         if(nodeOffset !== offset) {
-            this.splitNode(node, offset - nodeOffset)
+            this.splitNode(node, offset - nodeOffset);
         }
         let newNode = new TreeNode(TYPE_BUFFER_PTR, null, null, null);
         newNode.buffer = new ArrayBuffer(size);

@@ -20,7 +20,6 @@ export default class WebMenuElement extends HTMLTextElement {
 
         let items = this.menu.items;
         for(let i = 0; i < items.length; i++) {
-            console.log('items');
             this._addMenuItem(i, items[i]);
         }
     }
@@ -70,7 +69,6 @@ export default class WebMenuElement extends HTMLTextElement {
         this._closeAllItemsExcept(menuItem);
         if(menuItem.hasSubMenu) {
             menuItem.subMenu.open(left + 'px', top + 'px');
-            console.log('setting active ' + left + ' ' + top);
             menuItemElement.active = true;
         }
     }

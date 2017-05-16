@@ -78,7 +78,6 @@ export default class HexEditorComponent {
     initialLoadFile() {
         this.hexEditorElement.reset();
         this.hexEditorElement.scrollHeight = Math.ceil((this.hexEditor.byteBuffer.size + 16 + 1) / this.hexEditorViewElement.rowSize);
-        console.log('initialFile Load ' + this.hexEditor.offset / 16);
         this.hexEditorElement.layout();
         this.hexEditorElement.scrollTop = this.hexEditor.offset / 16;
         this.loadData();
@@ -86,30 +85,39 @@ export default class HexEditorComponent {
 
     clearFile() {
         this.hexEditorElement.reset();
+        //reset scrollbar
         this.hexEditorElement.scrollHeight = 0;
         this.hexEditorElement.layout();
         this.hexEditorElement.scrollTop = 0;
-        let buffer = new Buffer(0);
-        let view = new Uint8Array(buffer);
-        this.setOffsetAndData(0, view, view);
+        //clear data
+        this.hexEditorViewElement.clearData();
+        //clear cursor
+        this.hexEditorViewElement.setCursor(-1, 0);
+        //clear selection
+        this.hexEditorViewElement.setSelection(-1, -1);
+        //clear offset
+        this.hexEditorViewElement.offset = 0;
     }
 
-    handleActivateHexEditor(index, hexEditor) {
-        this.setEditor(hexEditor);
+    handleActivateHexEditor(hexEditor, activate) {
+        if(activate === false) {
+            this.setEditor(null);
+        } else {
+            this.setEditor(hexEditor);
+        }
     }
 
     setEditor(hexEditor) {
-        if(this.hexEditor) {
+        if(this.hexEditor !== null) {
             this.editorSubs.dispose();
             this.editorSubs = null;
         }
         this.editorSubs = new DisposableCollection();
         this.hexEditor = hexEditor;
-        if(!hexEditor) {
+        if(hexEditor === null) {
             this.clearFile();
             return;
         }
-        console.log('attachOnOffset');
         this.editorSubs.add(this.hexEditor.onOffsetChange(this._handleOnOffset.bind(this)));
         this.editorSubs.add(this.hexEditor.cursor.onCursorChange(this._handleOnCursorChange.bind(this)));
         this.editorSubs.add(this.hexEditor.selection.onSelectionChange(this._handleOnSelectionChange.bind(this)));
@@ -201,7 +209,6 @@ export default class HexEditorComponent {
     }
 
     _handleOnOffset() {
-        console.log('onOffset');
         this.loadData();
     }
 

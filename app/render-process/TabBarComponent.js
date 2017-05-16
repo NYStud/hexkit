@@ -20,12 +20,13 @@ export default class TabBarComponent {
 
     handleAddHexEditor(index, hexEditor) {
         let tab = new Tab(this.tabBar, path.basename(hexEditor.path));
-        tab.sub = tab.onClose(this.handleClose.bind(this, index));
+        tab.sub = tab.onClose(this.handleClose.bind(this, tab));
+        tab.hexEditor = hexEditor;
         this.tabBar.addTab(tab, false, index);
     }
 
-    handleClose(index) {
-        let hexEditor = hexkit.hexEditorRegistry.editors[index];
+    handleClose(tab) {
+        let hexEditor = tab.hexEditor;
         hexkit.hexEditorRegistry.remove(hexEditor);
     }
 
@@ -33,15 +34,24 @@ export default class TabBarComponent {
         let tab = this.tabBar.tabs[index];
         tab.sub.dispose();
         tab.sub = null;
+        tab.hexEditor = null;
         this.tabBar.removeTab(tab);
     }
 
-    handleActivateHexEditor(index) {
-        this.tabBar.activeTab = this.tabBar.tabs[index];
+    handleActivateHexEditor(hexEditor, activate) {
+        if(activate === false) {
+            this.tabBar.activeTab = null;
+        } else {
+            this.tabBar.tabs.forEach(tab => {
+                if(tab.hexEditor === hexEditor) {
+                    this.tabBar.activeTab = tab;
+                }
+            });
+        }
     }
 
-    handleTabChange(tab, pos) {
-        hexkit.hexEditorRegistry.activeHexEditor = hexkit.hexEditorRegistry.editors[pos];
+    handleTabChange(tab) {
+        hexkit.hexEditorRegistry.activeHexEditor = tab.hexEditor;
     }
 
     dispose() {

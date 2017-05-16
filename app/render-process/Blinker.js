@@ -1,49 +1,86 @@
-import HTMLElement from './HTMLElement';
 
 export default class Blinker {
 
-    constructor(el, cls, enabled = false, onDuration = 500, offDuration = 500) {
-        if(!(el instanceof HTMLElement)) {
-            throw new TypeError('not a HTMLElement');
+    defined(val, def) {
+        /*jshint eqnull:true*/
+        if(val == null) {
+            return def;
         }
-        this.element = el;
-        this.class = cls;
-        this.onDuration = onDuration;
-        this.offDuration = offDuration;
-        this.enabled = enabled;
-        this.timeout = null;
+        return val;
     }
 
-    _on() {
-        if(this.enabled === false) {
+    constructor(params) {
+
+        this._onDuration = this.defined(params.onDuration, 500);
+        this._offDuration = this.defined(params.offDuration, 500);
+        this._isOn = false;
+        this._timeout = null;
+        this._isEnabled = this.defined(params.enabled, false);
+
+    }
+
+    enable() {
+        if(this._isEnabled === true) {
             return;
         }
-        this.element.addClass(this.class);
-        this.timeout = setTimeout(this._off.bind(this), this.onDuration);
+        this._isEnabled = true;
+        this._on();
+        this._onTimeout();
+    }
+
+    disable() {
+        if(this._isEnabled === false) {
+            return;
+        }
+        this._isEnabled = false;
+        this._clearTimeout();
+        this._off();
+    }
+
+    _onTimeout() {
+        this._timeout = setTimeout(this._handleOnTimeout.bind(this), this._onDuration);
+    }
+
+    _offTimeout() {
+        this._timeout = setTimeout(this._handleOffTimeout.bind(this), this._offDuration);
+    }
+
+    _clearTimeout() {
+        if(this._timeout !== null) {
+            clearTimeout(this._timeout);
+            this._timeout = null;
+        }
+    }
+
+    _handleOnTimeout() {
+        this._off();
+        this._offTimeout();
+    }
+
+    _handleOffTimeout() {
+        this._on();
+        this._onTimeout();
+    }
+
+    on() { }
+
+    off() { }
+
+    _on() {
+        this._isOn = true;
+        this.on();
     }
 
     _off() {
-        this.element.removeClass(this.class);
-        if(this.enabled === true) {
-            setTimeout(this._on.bind(this), this.offDuration);
-        }
+        this._isOn = false;
+        this.off();
     }
 
-    get enabled() {
-        return this._enabled;
+    get isOn() {
+        return this._isOn;
     }
 
-    set enabled(enabled) {
-        if(enabled !== this._enabled) {
-            this._enabled = enabled;
-            if(enabled) {
-                this._on();
-            } else {
-                if(this.timeout !== null) {
-                    clearTimeout(this.timeout);
-                }
-                this._off();
-            }
-        }
+    get isEnabled() {
+        return this._isEnabled;
     }
 }

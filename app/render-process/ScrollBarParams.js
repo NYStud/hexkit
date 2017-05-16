@@ -178,7 +178,6 @@ export default class ScrollBarParams {
         if(scrollPosition > this.maxScrollPosition) {
             scrollPosition = this.maxScrollPosition;
         }
-        console.log('scrollPosition ' + scrollPosition + ' ' + this.maxScrollPosition);
         let gripPosition = Math.round(scrollPosition / this.ratio);
         if(scrollPosition !== this._scrollPosition) {
             this._scrollPosition = scrollPosition;

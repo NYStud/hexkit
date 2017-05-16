@@ -58,10 +58,19 @@ function aboutWindow() {
 
 function createWindow() {
 
+    //get nearest display to cursor
+    let display = electron.screen.getDisplayNearestPoint(electron.screen.getCursorScreenPoint());
+    let width = 1000;
+    let height = 750;
+    let x = display.bounds.x + 100;
+    let y = display.bounds.y + 100;
+
     // Create the browser window.
     let mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600
+        width: width,
+        height: height,
+        x: x,
+        y: y
     });
 
     // and load the index.html of the app.
