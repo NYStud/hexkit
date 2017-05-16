@@ -63,13 +63,13 @@ class TreeNode {
     deleteNode(node) {
         let pos = 0;
         for(let i = 0; i < this.count; i++) {
-            if(childs[i] === node) {
+            if(this.childs[i] === node) {
                 pos = i;
             }
         }
         for(let i = pos + 1; i < this.count - 1; i++) {
             this.key[i] = this.keys[i+1];
-            this.cbilds[i] = this.childs[i+1];
+            this.childs[i] = this.childs[i+1];
         }
         this.count--;
         //this.length = 0;
@@ -321,7 +321,6 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
             newNode.view = view2;
         }
         newNode.length = nodeToSplit.length - offset;
-        let delta = nodeToSplit.length - offset;
         let node = nodeToSplit;
         node.length = offset;
         node.parent.updateLength(node);
@@ -340,22 +339,24 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
         return new Promise((resolve, reject) => {
             let node = nodes[0];
             let nodeOffset = offset - node.offset;
+            let readFromFile = function (node, nodeOffset, index) {
+                promises.push(self._reader.readByte(node.fileOffset + nodeOffset).then(function (byte) {
+                    view[index] = byte;
+                }).catch(e => {
+                    reject(e);
+                }));
+            };
             for(let index = 0; index < size; index++) {
                 if(nodeOffset === node.length) {
                     node = node.next;
                     nodeOffset = 0;
                 }
                 if(node.type === TYPE_FILE_PTR) {
-                    (function (node, nodeOffset) {
-                        promises.push(self._reader.readByte(node.fileOffset + nodeOffset).then(function (byte) {
-                            view[index] = byte;
-                        }));
-                    }(node, nodeOffset));
-                    nodeOffset++;
+                    readFromFile(node, nodeOffset, index);
                 } else {
                     view[index] = node.view[nodeOffset];
-                    nodeOffset++;
                 }
+                nodeOffset++;
             }
             Promise.all(promises).then(function() {
                 resolve(view);
@@ -374,9 +375,6 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
         if(offset + size > this.size) {
             size = this.size - offset;
         }
-        let buffer = new Buffer(size);
-        let view = new Uint8Array(buffer);
-        let self = this;
         let node = nodes[0];
         let nodeOffset = offset - node.offset;
         for(let index = 0; index < size; index++) {
@@ -402,12 +400,13 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
             if(node.type === TYPE_FILE_PTR) {
                 return this._reader.readByte(node.fileOffset + nodeOffset).then(function (byte) {
                     resolve(byte);
+                }).catch(e => {
+                    reject(e);
                 });
             } else {
                 resolve(node.view[nodeOffset]);
             }
         });
-
     }
 
     writeByte(offset, byte) {
@@ -440,7 +439,6 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
             this.splitNode(node, offset + size - node.offset);
         }
         nodes = this._rootNode.findNodes(offset, size);
-        let prevNode = nodes[0].prev;
         for(let i = 0; i < nodes.length; i++) {
             this.deleteNode(nodes[i]);
         }
@@ -485,7 +483,7 @@ export default class WritableBinaryBuffer extends BinaryBuffer {
         for(let i = 0; i < size; i++) {
             newNode.view[i] = data[i];
         }
-        this.insertAfter(node, newNode);
+        this.insertAfter(prevNode, newNode);
         this.emitter.emit('modify', offset, size);
     }
 
